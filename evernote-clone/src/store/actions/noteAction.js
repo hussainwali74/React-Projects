@@ -31,6 +31,25 @@ export const deleteNote = (id) => {
 	}
 }
 
+export const updateNote = (note) => {
+	return (dispatch, getState, { getFirestore }) => {
+		const firestore = getFirestore()
+
+		firestore
+			.collection("notes")
+			.doc(note.id)
+			.update({
+				...note,
+			})
+			.then((d) => {
+				console.log("-------------------------------------------------------")
+				console.log("d update note success :>>", d)
+				console.log("-------------------------------------------------------")
+			})
+			.catch((err) => console.log(err))
+	}
+}
+
 export const toggleFav = (note) => {
 	return (dispatch, getState, { getFirestore }) => {
 		const favorite = !note.favorite

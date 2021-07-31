@@ -13,6 +13,7 @@ const useInput = (initialState = "") => {
 			setValue(e.target.value)
 		},
 	}
+
 	return [value, bind, reset]
 }
 

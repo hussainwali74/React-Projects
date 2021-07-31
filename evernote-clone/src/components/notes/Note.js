@@ -2,6 +2,7 @@ import React from "react"
 import { deleteNote, toggleFav } from "../../store/actions/noteAction"
 import { useDispatch } from "react-redux"
 import moment from "moment"
+import { Link } from "react-router-dom"
 const Note = ({ note }) => {
 	const dispatch = useDispatch()
 	const deleteNoteHandler = () => {
@@ -10,7 +11,11 @@ const Note = ({ note }) => {
 	const toggleFavortieHandler = () => {
 		dispatch(toggleFav(note))
 	}
-	console.log(`note`, note)
+
+	const editNoteHandler = () => {
+		dispatch({ type: "EDIT_NOTE", payload: note })
+	}
+
 	const heartMarkup = note.favorite ? "favorite" : "favorite_border"
 	return (
 		<div className="noterdam white">
@@ -30,7 +35,11 @@ const Note = ({ note }) => {
 			<p className="truncate">{note.content}</p>
 			<p className="grey-text">{moment(note.createdAt.toDate()).fromNow()}</p>
 			<div className="right-align">
-				<i className="material-icons black-text">edit</i>
+				<Link to={`/editform/${note.id}`}>
+					<i className="material-icons black-text" onClick={editNoteHandler}>
+						edit
+					</i>
+				</Link>
 			</div>
 		</div>
 	)
